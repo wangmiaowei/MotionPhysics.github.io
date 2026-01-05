@@ -6,8 +6,7 @@
   <!-- <meta name="keywords" content="Nerfies, D-NeRF, NeRF"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title> CanFields: Consolidating Diffeomorphic Flows for Non-Rigid 4D Interpolation
-from Arbitrary-Length Sequences </title>
+  <title> MotionPhysics: Learnable Motion Distillation for Text-Guided Simulation  </title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
@@ -65,15 +64,16 @@ from Arbitrary-Length Sequences </title>
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">	
-              CanFields: Consolidating Diffeomorphic Flows for Non-Rigid 4D Interpolation
-from Arbitrary-Length Sequences</h1>
+              MotionPhysics: Learnable Motion Distillation for Text-Guided Simulation </h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://openreview.net/profile?id=~Miaowei_Wang1">Miaowei Wang</a>,</span>
+                <a href="https://wangmiaowei.github.io/">Miaowei Wang</a>,</span>
               <span class="author-block">
-                <a href="https://enigma-li.github.io/">Changjian Li</a>,</span>
+                <a href="https://jakubzadrozny.github.io/">Jakub Zadrożny</a>,</span>
               <span class="author-block">
-                <a href="https://avaxman.github.io//">Amir Vaxman</a>,
+                <a href="https://homepages.inf.ed.ac.uk/omacaod/">Oisin Mac Aodha</a>,</span>
+              <span class="author-block">
+                <a href="https://avaxman.github.io/">Amir Vaxman</a>
               </span>
             </div>
 
@@ -82,7 +82,7 @@ from Arbitrary-Length Sequences</h1>
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block">ICCV2025 Accepted</span>
+              <span class="author-block">AAAI 2026 Accepted</span>
             </div>
 
             <div class="column has-text-centered">
@@ -98,7 +98,7 @@ from Arbitrary-Length Sequences</h1>
                 </a>
               </span> -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/2406.18582" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://arxiv.org/abs/2601.00504v1" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-arxiv"></i>
                     </span>
@@ -107,7 +107,7 @@ from Arbitrary-Length Sequences</h1>
                 </span>
 
                 <span class="link-block">
-                  <a href="https://github.com/wangmiaowei/CanFields" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://github.com/wangmiaowei/MotionPhysics.git" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
@@ -127,11 +127,11 @@ from Arbitrary-Length Sequences</h1>
   <div class="container is-max-desktop">
     <div class="bear-body">
       <video id="bear" controls preload playsinline autoplay loop width="100%">
-        <source src="./static/videos/Video_4546_Voice.mp4"
+        <source src="./static/videos/MotionPhysics.mp4"
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <p><strong>TL;DR:</strong> A spatiotemporal continuous interpolation algorithm that reconstructs smooth geometry from a sparse and discrete sequence of independent point clouds.</p>
+        <p><strong>TL;DR:</strong> An automatic, text-guided system that configures simulation parameters to produce realistic dynamic visuals.</p>
       </h2>
     </div>
   </div>
@@ -220,13 +220,7 @@ from Arbitrary-Length Sequences</h1>
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              We introduce Canonical Consolidation Fields (CanFields). 
-              This novel method interpolates arbitrary-length sequences of independently sampled 3D point clouds into a unified, 
-              continuous, and coherent deforming shape. Unlike prior methods that oversmooth geometry or produce topological and geometric artifacts, 
-              CanFields optimizes fine-detailed geometry and deformation jointly in an unsupervised fitting with two novel bespoke modules. 
-              First, we introduce a dynamic consolidator module that adjusts the input and assigns confidence scores, balancing the optimization of the canonical shape and its motion. 
-              Second, we represent the motion as a diffeomorphic flow parameterized by a smooth velocity field. We have validated our robustness and accuracy on more than 50 diverse sequences, 
-              demonstrating its superior performance even with missing regions, noisy raw scans, and sparse data. 
+              Accurately simulating existing 3D objects and a wide variety of materials often demands expert knowledge and time-consuming physical parameter tuning to achieve the desired dynamic behavior. We introduce MotionPhysics, an end-to-end differentiable framework that infers plausible physical parameters from a user-provided natural language prompt for a chosen 3D scene of interest, removing the need for guidance from ground-truth trajectories or annotated videos. Our approach first utilizes a multimodal large language model to estimate material parameter values, which are constrained to lie within plausible ranges. We further propose a learnable motion distillation loss that extracts robust motion priors from pretrained video diffusion models while minimizing appearance and geometry inductive biases to guide the simulation. We evaluate MotionPhysics across more than thirty scenarios, including real-world, human-designed, and AI-generated 3D objects, spanning a wide range of materials such as elastic solids, metals, foams, sand, and both Newtonian and non-Newtonian fluids. We demonstrate that MotionPhysics produces visually realistic dynamic simulations guided by natural language, surpassing the state of the art while automatically determining physically plausible parameters.
             </p>
           </div>
         </div>
@@ -250,21 +244,10 @@ from Arbitrary-Length Sequences</h1>
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3">Pipeline</h2>
-    <img src="./static/images/pipeline.png" class="interpolation-image" />
+    <img src="./static/images/pipeline-1.png" class="interpolation-image" />
     <p>
-      <strong>Top (Fitting Phase):</strong>
-      The sampled input point clouds \( \Omega = \{\Omega_i\} \) are processed through our optimizable dynamic consolidator module \( \Upsilon \), 
-      reducing variance and estimating confidence. They are then input to the optimizable smooth velocity field \( v \), 
-      integrated by an ODE solver to the flow \( \phi \) that transforms points to the canonical time \( c \). 
-      An optimizable motion-segmentation network \( \zeta_H \) segments the points for articulation regularization. 
-      The reconstructed canonical implicit shape \( g_c \) is encoded with SIREN 
-      <a href="https://arxiv.org/abs/2006.09661" target="_blank">[Sitzmann et al. 2020]</a>.
-    </p>
-    <p>
-      <strong>Bottom (Interpolation Phase):</strong>
-      We extract a mesh \( M_c \) of \( g_c \) with marching cubes 
-      <a href="https://dl.acm.org/doi/10.1145/37402.37422" target="_blank">[Lorensen and Cline 1987]</a>, 
-      and flow its vertices to obtain shape \( M_t \) for any target time \( t \).
+      <strong>Overview.</strong> MotionPhysics simulates physically consistent dynamics from text-guided input prompts by automatically
+estimating physical parameters for diverse input scenes, including AI-generated, real-world, and human-designed assets.
     </p>
   </div>
 </section>
@@ -326,67 +309,17 @@ from Arbitrary-Length Sequences</h1>
   </div>
 </section> -->
 
-         <section class="section">
-  <div class="container is-max-desktop">
-    <div class="comparison-body">
-      <img src="./static/images/moredetails.png" class="interpolation-image" />
-    </div>
-  </div>
-</section>
-
-       <section class="section">
-  <div class="container is-max-desktop">
-    <div class="comparison-body">
-<!-- <div class="video-container">
-         <video id="horse" controls muted preload playsinline autoplay loop width="49%">
-            <source src="./static/videos/chair.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
-         <video id="horse" controls muted preload playsinline autoplay loop width="49%">
-            <source src="./static/videos/stool.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
-         <video id="horse" controls muted preload playsinline autoplay loop width="49%">
-            <source src="./static/videos/material.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-      <h2 class="subtitle has-text-centered">
-        Visual Quality Comparison: our method synthesizes competitive visual results compared to PhysGuassian and significantly outperforms PAC-NeRF.
-      </h2>
-    </div>
-  </div> -->
-</section>
-  <section class="section" id="Acknowledgements">
-    <div class="container is-max-desktop content">
-      <h2 class="title">Acknowledgements</h2>
-        We thank Hakan Bilen and Oisin Mac Aodha for their help in preparing this manuscript.
-    </div>
-  </section>
-  <!-- <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}</code></pre>
-  </div>
-</section> -->
 
 
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>@InProceedings{CanFields2025,
-    title={CanFields: Consolidating Diffeomorphic Flows for Non-Rigid 4D Interpolation
-from Arbitrary-Length Sequences},
-    author={Wang, Miaowei and Li, Changjian and Vaxman, Amir},
-    booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    year={2025}}</code></pre>
+      <pre><code>@InProceedings{motionphysics2026,
+  title     = {MotionPhysics: Learnable Motion Distillation for Text-Guided Simulation},
+  author    = {Miaowei Wang and Jakub Zadrożny and Oisin Mac Aodha and Amir Vaxman},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  year      = {2026}
+}</code></pre>
     </div>
   </section>
 
