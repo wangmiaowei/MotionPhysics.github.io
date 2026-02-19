@@ -1,5 +1,4 @@
-# DecoupledGaussian: Object-Scene Decoupling for Physics-Based Interaction
-
+# MotionPhysics AAAI 2026
 The source code of this website is borrowed from [nerfies](https://github.com/nerfies/nerfies.github.io). We thank the authors for sharing the template.
 
 # Website License
